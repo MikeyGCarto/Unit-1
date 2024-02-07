@@ -9,5 +9,103 @@
 </head>
 <body>
     <!-- Your HTML content goes here -->
+    <table id="myTable">
+        <!-- Table content goes here -->
+    </table>
+
+
+
+
+    
+    <!-- Wrap the script in a DOMContentLoaded event listener -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Script code here
+            // Debugging and commenting the main_with_debug.js script
+            console.log('Hello world');
+
+            // Define city population data
+            var cityPop = [
+                { 
+                    city: 'Madison',
+                    population: 233209
+                },
+                {
+                    city: 'Milwaukee',
+                    population: 594833
+                },
+                {
+                    city: 'Green Bay',
+                    population: 104057
+                },
+                {
+                    city: 'Superior',
+                    population: 27244
+                }
+            ];
+
+            // Function to add columns to the table based on city population
+            function addColumns(cityPop){
+                // Iterate over each row in the table
+                document.querySelectorAll("tr").forEach(function(row, i){
+                    if (i == 0){
+                        // Add a column header for "City Size" to the first row
+                        row.insertAdjacentHTML('beforeend', '<th>City Size</th>');
+                    } else {
+                        var citySize;
+                        // Determine the city size based on population
+                        if (cityPop[i-1].population < 100000){
+                            citySize = 'Small';
+                        } else if (cityPop[i-1].population < 500000){
+                            citySize = 'Medium';
+                        } else {
+                            citySize = 'Large';
+                        }
+                        // Add a cell with the city size to the current row
+                        row.insertAdjacentHTML('beforeend', '<td>' + citySize + '</td>');
+                    }
+                });
+            }
+
+            // Function to add hover and click events to the table
+            function addEvents(){
+                // Add event listeners to the table for hover and click
+                var table = document.querySelector("table");
+                table.addEventListener("mouseover", function(){
+                    // Change the background color of the table on hover
+                    var color = "rgb(";
+                    for (var i=0; i<3; i++){
+                        var random = Math.round(Math.random() * 255);
+                        color += random;
+                        if (i < 2){
+                            color += ",";
+                        } else {
+                            color += ")";
+                        }
+                    }
+                    table.style.backgroundColor = color;
+                });
+
+                // Define the clickme function for the click event
+                function clickme(){
+                    alert('Hey, you clicked me!');
+                }
+
+                // Add the click event listener to the table
+                table.addEventListener("click", clickme);
+            }
+
+            // Initialize the table and events when the window loads
+            function initialize(){
+                // Call the function to add columns based on city population
+                addColumns(cityPop);
+                // Call the function to add hover and click events to the table
+                addEvents();
+            }
+
+            // Call the initialize function when the window loads
+            initialize();
+        });
+    </script>
 </body>
 </html>
