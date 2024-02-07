@@ -1,6 +1,3 @@
-console.log('Hello world');
-// Replacing Main.js script into main_with_debug.js script
-
 var cityPop = [
     { 
         city: 'Madison',
