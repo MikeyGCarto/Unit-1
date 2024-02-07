@@ -27,7 +27,7 @@ function addColumns(cityPop) {
         if (i == 0) {
             row.insertAdjacentHTML('beforeend', '<th>City Size</th>');
         } else {
-            var citySize;
+            var citySize; //Creates classes for city size based on population
             if (cityPop[i - 1].population < 100000) {
                 citySize = 'Small';
             } else if (cityPop[i - 1].population < 500000) {
@@ -43,15 +43,14 @@ function addColumns(cityPop) {
 //Function creates two interactive buttons
 function addEvents(){
 	
-	//This creates the mouseover event that changes the text color to a random color on the scale as the mouse
-	//moves across the table
+	//Creates the mouseover event that changes the color of the numbers when hovered over
 	document.querySelector("table").addEventListener("mouseover", function(){
 		
 		var color = "rgb(";
 
 		for (var i=0; i<3; i++){
 
-			var random = Math.round(Math.random() * 255); //chooses a random color
+			var random = Math.round(Math.random() * 255); //random color generator
 
 			color += random; 
 
@@ -62,11 +61,11 @@ function addEvents(){
 				color += ")";
 		};
 
-		//This styleizes the text with random colors
+		//Uses the random color generator on the text when hovered over
 		document.querySelector("table").style.color = color;
 	}},)
 
-	//this function is a click interaction that pops up a message
+	//Click interaction when something is clicked
 	function clickme(){
 
 		alert('Hey, you clicked me!');
@@ -75,14 +74,14 @@ function addEvents(){
 	document.querySelector("table").addEventListener("click", clickme)
 };
 
-//this function calls upon the functions to be initialized and therefore implemented
+//Initializes the functions when called upon
 function initialize(){
     cities();
 	addColumns(cityPop);
 	addEvents();
 };
 
-//function to create a table with cities and their populations
+//Function creates another table with cities and population
 function cities(){
     var cities = [
         'Madison',
