@@ -1,5 +1,59 @@
 // Debugging and commenting the main_with_debug.js script
+function addColumns(cityPop){
+    
+    $('tr').each(function(i){
 
+    	if (i == 0){
+
+    		$(this).apend('<th>City Size</th>');
+    	} else {
+
+    		var citySize;
+
+    		if (cityPop[i-1].population < 100000){
+    			citySize = 'Small';
+
+    		} else if (cityPop[i-1].population < 500000){
+    			citysize = 'Medium';
+
+    		} else {
+    			citySize = 'Large';
+    		};
+
+    		$this.append('<td' + citySize + '</td>');
+    	};
+    });
+};
+
+function addEvents(){
+
+	$('#table').mouseover(function(){
+		
+		var color = "rgb(";
+
+		for (var i=0; i<3; i++){
+
+			var random = Math.round(Math.random() * 255);
+
+			color += "random";
+
+			if (i<2){
+				color += ",";
+			
+			} else {
+				color += ")";
+		};
+
+		$(this).css('color', color);
+	});
+
+	function clickme(){
+
+		alert('Hey, you clicked me!');
+	};
+
+	$('table').on('click', clickme);
+};
 // Log a message to confirm that the script is running
 console.log('Hello world');
 
@@ -74,7 +128,13 @@ function addEvents(){
     table.addEventListener("click", clickme);
 }
 
-// Initialize the table and events when the window loads
+
+
+
+
+
+
+// Initialize the table and events when the window loads example2.3
 function initialize(){
     cities(); // Populate the table with city data
     addColumns(cityPop); // Add columns for city size
@@ -128,3 +188,5 @@ function cities(){
 
 // Call the initialize function when the window loads
 window.onload = initialize;
+
+
