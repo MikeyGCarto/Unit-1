@@ -1,4 +1,4 @@
-/creates array with city and it's population
+//creates array with city and it's population
 var cityPop = [
 	{ 
 		city: 'Madison',
