@@ -19,74 +19,61 @@ var cityPop = [
         population: 27244
     }
 ];
-// Variables for multiple city populations with city being a string and population being numbers.
 
 function addColumns(cityPop){
-    
     document.querySelectorAll("tr").forEach(function(row, i){
-
         if (i == 0){
-
-            // Bug: Incorrect method name, should be `insertAdjacentHTML` instead of `insertAdjacntHTML`
-            row.insertAdjacntHTML('beforeend', '<th>City Size</th>');
+            // Bug: Correcting method name to insertAdjacentHTML
+            row.insertAdjacentHTML('beforeend', '<th>City Size</th>');
         } else {
-
             var citySize;
-
             if (cityPop[i-1].population < 100000){
                 citySize = 'Small';
-
             } else if (cityPop[i-1].population < 500000){
-                // Bug: Variable name is incorrect, should be `citySize` instead of `citysize`
-                citysize = 'Medium';
-
+                // Bug: Correcting variable name to citySize
+                citySize = 'Medium';
             } else {
                 citySize = 'Large';
             }
-
-            // Bug: Missing angle brackets for `<td>` and incorrect assignment operator
-            row.insertAdjacntHTML = '<td>' + citySize + '</td>';
+            // Bug: Correcting assignment to use innerHTML
+            row.insertAdjacentHTML('beforeend', '<td>' + citySize + '</td>');
         }
     });
 }
 
 function addEvents(){
-
-    document.querySelector("table").addEventListener("mouseover", function(){
-        
+    var table = document.querySelector("table");
+    table.addEventListener("mouseover", function(){
         var color = "rgb(";
-
         for (var i=0; i<3; i++){
-
             var random = Math.round(Math.random() * 255);
-
-            color += "random";
-
-            if (i<2){
+            color += random;
+            if (i < 2){
                 color += ",";
-            
             } else {
                 color += ")";
             }
         }
-
-        // Bug: Incorrect property to set the table color, should be `style.backgroundColor`
-        document.querySelector("table").color = color;
+        // Bug: Correcting property name to style.backgroundColor
+        table.style.backgroundColor = color;
     });
 
+    // Bug: Click event handler function was not properly defined
     function clickme(){
-
         alert('Hey, you clicked me!');
     }
 
-    document.querySelector("table").addEventListener("click", clickme);
+    table.addEventListener("click", clickme);
 }
 
-//ex2.3
+// Initialize function to set up the table and events
 function initialize(){
     cities();
-};
+    addColumns(cityPop);
+    addEvents();
+}
 
+// Function to populate the table with city names and populations
 function cities(){
     var cities = [
         'Madison',
@@ -104,33 +91,28 @@ function cities(){
     var table = document.createElement("table");
 
     var headerRow = document.createElement("tr");
-
     var cityHeader = document.createElement("th");
     cityHeader.innerHTML = "City";
     headerRow.appendChild(cityHeader);
-
     var popHeader = document.createElement("th");
     popHeader.innerHTML = "Population";
     headerRow.appendChild(popHeader);
-
     table.appendChild(headerRow);
 
     for (var i = 0; i < cities.length; i++){
         var tr = document.createElement("tr");
-
         var city = document.createElement("td");
         city.innerHTML = cities[i];
         tr.appendChild(city);
-
         var pop = document.createElement("td");
         pop.innerHTML = population[i];
         tr.appendChild(pop);
-
         table.appendChild(tr);
-    };
+    }
 
     var mydiv = document.getElementById("mydiv");
     mydiv.appendChild(table);
-};
+}
 
-window.onload = initialize();
+// Call initialize function when the window loads
+window.onload = initialize;
