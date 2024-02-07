@@ -1,74 +1,83 @@
+console.log('Hello world');
+// Replacing Main.js script into main_with_debug.js script
+
 var cityPop = [
-	{ 
-		city: 'Madison',
-		population: 233209
-	},
-	{
-		city: 'Milwaukee',
-		population: 594833
-	},
-	{
-		city: 'Green Bay',
-		population: 104057
-	},
-	{
-		city: 'Superior',
-		population: 27244
-	}
+    { 
+        city: 'Madison',
+        population: 233209
+    },
+    {
+        city: 'Milwaukee',
+        population: 594833
+    },
+    {
+        city: 'Green Bay',
+        population: 104057
+    },
+    {
+        city: 'Superior',
+        population: 27244
+    }
 ];
+// Variables for multiple city populations with city being a string and population being numbers.
 
 function addColumns(cityPop){
     
     document.querySelectorAll("tr").forEach(function(row, i){
 
-    	if (i == 0){
+        if (i == 0){
 
-    		row.insertAdjacntHTML('beforeend', '<th>City Size</th>');
-    	} else {
+            // Bug: Incorrect method name, should be `insertAdjacentHTML` instead of `insertAdjacntHTML`
+            row.insertAdjacntHTML('beforeend', '<th>City Size</th>');
+        } else {
 
-    		var citySize;
+            var citySize;
 
-    		if (cityPop[i-1].population < 100000){
-    			citySize = 'Small';
+            if (cityPop[i-1].population < 100000){
+                citySize = 'Small';
 
-    		} else if (cityPop[i-1].population < 500000){
-    			citysize = 'Medium';
+            } else if (cityPop[i-1].population < 500000){
+                // Bug: Variable name is incorrect, should be `citySize` instead of `citysize`
+                citysize = 'Medium';
 
-    		} else {
-    			citySize = 'Large';
-    		};
+            } else {
+                citySize = 'Large';
+            }
 
-			row.insertAdjacntHTML = '<td' + citySize + '</td>';
-    	};
+            // Bug: Missing angle brackets for `<td>` and incorrect assignment operator
+            row.insertAdjacntHTML = '<td>' + citySize + '</td>';
+        }
     });
-};
+}
 
 function addEvents(){
 
-	document.querySelector("table").addEventListener("mouseover", function(){
-		
-		var color = "rgb(";
+    document.querySelector("table").addEventListener("mouseover", function(){
+        
+        var color = "rgb(";
 
-		for (var i=0; i<3; i++){
+        for (var i=0; i<3; i++){
 
-			var random = Math.round(Math.random() * 255);
+            var random = Math.round(Math.random() * 255);
 
-			color += "random";
+            color += "random";
 
-			if (i<2){
-				color += ",";
-			
-			} else {
-				color += ")";
-		};
+            if (i<2){
+                color += ",";
+            
+            } else {
+                color += ")";
+            }
+        }
 
-		document.querySelector("table").color = color;
-	});
+        // Bug: Incorrect property to set the table color, should be `style.backgroundColor`
+        document.querySelector("table").color = color;
+    });
 
-	function clickme(){
+    function clickme(){
 
-		alert('Hey, you clicked me!');
-	};
+        alert('Hey, you clicked me!');
+    }
 
-	document.querySelector("table").addEventListener("click", clickme)
-};
+    document.querySelector("table").addEventListener("click", clickme);
+}
