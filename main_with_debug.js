@@ -1,3 +1,6 @@
+console.log('Hello world');
+// Replacing Main.js script into main_with_debug.js script
+
 var cityPop = [
 	{ 
 		city: 'Madison',
@@ -16,6 +19,7 @@ var cityPop = [
 		population: 27244
 	}
 ];
+// Variables for multiple city populations with city being a string and population being numbers.
 
 function addColumns(cityPop){
     
