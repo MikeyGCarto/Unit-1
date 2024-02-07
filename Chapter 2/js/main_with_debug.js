@@ -1,4 +1,4 @@
-//creates array with city and it's population
+//creates a variable array with strings and numbers
 var cityPop = [
 	{ 
 		city: 'Madison',
@@ -18,11 +18,11 @@ var cityPop = [
 	}
 ];
 
-//This function looks at each element of cityPop array and creates a column 
-//saying if it is a small, medium, or large city
+//This function uses each element of cityPop variables to create columns.
+//small, medium, or large city
 function addColumns(cityPop) {
     
-	//creates the header for City Size before anything
+	//creates the header for City Size
 	document.querySelectorAll("tr").forEach(function(row, i) {
         if (i == 0) {
             row.insertAdjacentHTML('beforeend', '<th>City Size</th>');
@@ -40,7 +40,7 @@ function addColumns(cityPop) {
     });
 }
 
-//This function creates 2 interactive processes
+//Function creates two interactive buttons
 function addEvents(){
 	
 	//This creates the mouseover event that changes the text color to a random color on the scale as the mouse
