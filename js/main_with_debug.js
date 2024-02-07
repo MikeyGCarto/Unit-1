@@ -1,88 +1,89 @@
+
+//creates array with city and it's population
 var cityPop = [
-    { 
-        city: 'Madison',
-        population: 233209
-    },
-    {
-        city: 'Milwaukee',
-        population: 594833
-    },
-    {
-        city: 'Green Bay',
-        population: 104057
-    },
-    {
-        city: 'Superior',
-        population: 27244
-    }
+	{ 
+		city: 'Madison',
+		population: 233209
+	},
+	{
+		city: 'Milwaukee',
+		population: 594833
+	},
+	{
+		city: 'Green Bay',
+		population: 104057
+	},
+	{
+		city: 'Superior',
+		population: 27244
+	}
 ];
 
-function addColumns(cityPop){
-    // Loop through each row (tr) in the table
-    $("tr").each(function(i, row){
-
-        if (i == 0){
-            // Add a header for "City Size" to the first row
-            $(row).append('<th>City Size</th>');
+//This function looks at each element of cityPop array and creates a column 
+//saying if it is a small, medium, or large city
+function addColumns(cityPop) {
+    
+	//creates the header for City Size before anything
+	document.querySelectorAll("tr").forEach(function(row, i) {
+        if (i == 0) {
+            row.insertAdjacentHTML('beforeend', '<th>City Size</th>');
         } else {
             var citySize;
-
-            // Determine the city size based on population
-            if (cityPop[i-1].population < 100000){
+            if (cityPop[i - 1].population < 100000) {
                 citySize = 'Small';
-            } else if (cityPop[i-1].population < 500000){
+            } else if (cityPop[i - 1].population < 500000) {
                 citySize = 'Medium';
             } else {
                 citySize = 'Large';
             }
-
-            // Add a cell with the city size to the current row
-            $(row).append('<td>' + citySize + '</td>');
+            row.insertAdjacentHTML('beforeend', '<td>' + citySize + '</td>'); //adds citySize to column
         }
     });
 }
 
+//This function creates 2 interactive processes
 function addEvents(){
-    // Add mouseover event to the table
-    $("table").mouseover(function(){
-        var color = "rgb(";
+	
+	//This creates the mouseover event that changes the text color to a random color on the scale as the mouse
+	//moves across the table
+	document.querySelector("table").addEventListener("mouseover", function(){
+		
+		var color = "rgb(";
 
-        // Generate random RGB color
-        for (var i=0; i<3; i++){
-            var random = Math.round(Math.random() * 255);
-            color += random;
-            if (i<2){
-                color += ",";
-            } else {
-                color += ")";
-            }
-        }
+		for (var i=0; i<3; i++){
 
-        // Apply the generated color to the table's text color
-        $(this).css('color', color);
-    });
+			var random = Math.round(Math.random() * 255); //chooses a random color
 
-    // Add click event to the table
-    $("table").on('click', function(){
-        alert('Hey, you clicked me!');
-    });
-}
+			color += random; 
 
-// Initialize the table and events when the document is ready
-$(document).ready(function(){
-    // Call the function to add columns based on city population
-    addColumns(cityPop);
-    // Call the function to add hover and click events to the table
-    addEvents();
-});
+			if (i<2){
+				color += ",";
+			
+			} else {
+				color += ")";
+		};
 
+		//This styleizes the text with random colors
+		document.querySelector("table").style.color = color;
+	}},)
 
+	//this function is a click interaction that pops up a message
+	function clickme(){
 
-// EXAMPLE TABLE
-function initialize(){
-    cities();
+		alert('Hey, you clicked me!');
+	};
+
+	document.querySelector("table").addEventListener("click", clickme)
 };
 
+//this function calls upon the functions to be initialized and therefore implemented
+function initialize(){
+    cities();
+	addColumns(cityPop);
+	addEvents();
+};
+
+//function to create a table with cities and their populations
 function cities(){
     var cities = [
         'Madison',
@@ -97,20 +98,26 @@ function cities(){
         27244
     ];
 
+    //create a table element
     var table = document.createElement("table");
 
+    //create a header row
     var headerRow = document.createElement("tr");
 
+    //add city column to header row
     var cityHeader = document.createElement("th");
     cityHeader.innerHTML = "City";
     headerRow.appendChild(cityHeader);
 
+    //add population column to header row
     var popHeader = document.createElement("th");
     popHeader.innerHTML = "Population";
     headerRow.appendChild(popHeader);
-
+	
+    //add the header row
     table.appendChild(headerRow);
 
+    //loop to add a new row for each city
     for (var i = 0; i < cities.length; i++){
         var tr = document.createElement("tr");
 
@@ -125,6 +132,7 @@ function cities(){
         table.appendChild(tr);
     };
 
+    //add the table to the div in index.html
     var mydiv = document.getElementById("mydiv");
     mydiv.appendChild(table);
 };
