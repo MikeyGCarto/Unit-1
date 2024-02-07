@@ -1,14 +1,9 @@
-// JavaScript code to interact with index.html
+// Debugging and commenting the main_with_debug.js script
 
-// Example: Add a click event listener to a button with id "myButton"
-document.getElementById("myButton").addEventListener("click", function() {
-    alert("Button clicked!");
-});
+// Log a message to confirm that the script is running
+console.log('Hello world');
 
-// Example: Manipulate the content of an HTML element with id "myDiv"
-document.getElementById("myDiv").innerHTML = "New content added by main.js";
-
-
+// Define city population data
 var cityPop = [
     { 
         city: 'Madison',
@@ -28,30 +23,35 @@ var cityPop = [
     }
 ];
 
+// Function to add columns to the table based on city population
 function addColumns(cityPop){
+    // Iterate over each row in the table
     document.querySelectorAll("tr").forEach(function(row, i){
         if (i == 0){
-            // Bug: Correcting method name to insertAdjacentHTML
+            // Add a column header for "City Size" to the first row
             row.insertAdjacentHTML('beforeend', '<th>City Size</th>');
         } else {
             var citySize;
+            // Determine the city size based on population
             if (cityPop[i-1].population < 100000){
                 citySize = 'Small';
             } else if (cityPop[i-1].population < 500000){
-                // Bug: Correcting variable name to citySize
                 citySize = 'Medium';
             } else {
                 citySize = 'Large';
             }
-            // Bug: Correcting assignment to use innerHTML
+            // Add a cell with the city size to the current row
             row.insertAdjacentHTML('beforeend', '<td>' + citySize + '</td>');
         }
     });
 }
 
+// Function to add hover and click events to the table
 function addEvents(){
+    // Add event listeners to the table for hover and click
     var table = document.querySelector("table");
     table.addEventListener("mouseover", function(){
+        // Change the background color of the table on hover
         var color = "rgb(";
         for (var i=0; i<3; i++){
             var random = Math.round(Math.random() * 255);
@@ -62,23 +62,23 @@ function addEvents(){
                 color += ")";
             }
         }
-        // Bug: Correcting property name to style.backgroundColor
         table.style.backgroundColor = color;
     });
 
-    // Bug: Click event handler function was not properly defined
+    // Define the clickme function for the click event
     function clickme(){
         alert('Hey, you clicked me!');
     }
 
+    // Add the click event listener to the table
     table.addEventListener("click", clickme);
 }
 
-// Initialize function to set up the table and events
+// Initialize the table and events when the window loads
 function initialize(){
-    cities();
-    addColumns(cityPop);
-    addEvents();
+    cities(); // Populate the table with city data
+    addColumns(cityPop); // Add columns for city size
+    addEvents(); // Add hover and click events to the table
 }
 
 // Function to populate the table with city names and populations
@@ -96,8 +96,10 @@ function cities(){
         27244
     ];
 
+    // Create a new table element
     var table = document.createElement("table");
 
+    // Create and append header row to the table
     var headerRow = document.createElement("tr");
     var cityHeader = document.createElement("th");
     cityHeader.innerHTML = "City";
@@ -107,6 +109,7 @@ function cities(){
     headerRow.appendChild(popHeader);
     table.appendChild(headerRow);
 
+    // Iterate over cities and populations to create rows in the table
     for (var i = 0; i < cities.length; i++){
         var tr = document.createElement("tr");
         var city = document.createElement("td");
@@ -118,9 +121,10 @@ function cities(){
         table.appendChild(tr);
     }
 
+    // Append the table to the specified div in the HTML
     var mydiv = document.getElementById("mydiv");
     mydiv.appendChild(table);
 }
 
-// Call initialize function when the window loads
+// Call the initialize function when the window loads
 window.onload = initialize;
