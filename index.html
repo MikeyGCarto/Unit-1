@@ -3,11 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Your Unit-1 Website</title>
+    <title>Your Website Title</title>
+    <!-- Link your main_with_debug.js script -->
+    <script src="js/main_with_debug.js"></script>
 </head>
 <body>
-    <h1>Hello world!</h1>
-    <script src="/js/main_with_debug.js"></script>
+    <!-- Your HTML content goes here -->
+
+    <!-- This script will copy the content of main.js to main_with_debug.js -->
+    <script>
+        fetch('js/main.js')
+            .then(response => response.text())
+            .then(data => {
+                const blob = new Blob([data], { type: 'text/javascript' });
+                const url = URL.createObjectURL(blob);
+                const script = document.createElement('script');
+                script.src = url;
+                document.body.appendChild(script);
+            })
+            .catch(error => console.error('Error fetching main.js:', error));
+    </script>
 </body>
 </html>
