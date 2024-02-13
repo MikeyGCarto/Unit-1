@@ -136,3 +136,24 @@ function cities(){
 };
 
 window.onload = initialize();
+
+//New Code for Activity 4
+//Extra spacing
+function debugCallback(response){
+	document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData))
+};
+
+function debugAjax(){
+	
+	var myData;
+	
+	fetch("data/MegaCities.geojson") //geojson changed to CSV.
+		.then(function(response){
+			debugCallback(response);
+		})
+
+	document.querySelector("#mydiv").insertAdjacentHTML('beforeend' '<br>GeoJSON data:<br>' + JSON.stringify(myData))
+};
+
+document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData))
+
