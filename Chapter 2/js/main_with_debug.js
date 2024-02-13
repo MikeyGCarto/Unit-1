@@ -140,20 +140,24 @@ window.onload = initialize();
 //New Code for Activity 4
 //Extra spacing
 function debugCallback(response){
-	document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData))
-};
+    // Use response.text() to extract the data from the response
+    response.text().then(function(myData) {
+        // Append the GeoJSON data to the div
+        document.querySelector("#mydiv").insertAdjacentHTML('beforeend', '<br>GeoJSON data:<br>' + myData);
+    });
+}
 
 function debugAjax(){
-	
-	var myData;
-	
-	fetch("data/MegaCities.csv") //geojson changed to CSV.
-		.then(function(response){
-			debugCallback(response);
-		})
+    fetch("data/MegaCities.csv") //geojson changed to CSV.
+        .then(function(response){
+            // Call debugCallback and pass the response
+            debugCallback(response);
+        })
+        // Catch any errors in fetching the data
+        .catch(function(error) {
+            console.log('Error fetching data:', error);
+        });
+}
 
-	document.querySelector("#mydiv").insertAdjacentHTML('beforeend' '<br>GeoJSON data:<br>' + JSON.stringify(myData))
-};
-
-document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData))
-
+// Call debugAjax to fetch and display data
+debugAjax();
