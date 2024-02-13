@@ -147,7 +147,7 @@ function debugAjax(){
 	
 	var myData;
 	
-	fetch("data/MegaCities.geojson") //geojson changed to CSV.
+	fetch("data/MegaCities.csv") //geojson changed to CSV.
 		.then(function(response){
 			debugCallback(response);
 		})
