@@ -148,7 +148,7 @@ function debugCallback(response){
 }
 
 function debugAjax(){
-    fetch("data/MegaCities.csv") //geojson changed to CSV.
+    fetch("data/MegaCities.geoJSON")
         .then(function(response){
             // Call debugCallback and pass the response
             debugCallback(response);
