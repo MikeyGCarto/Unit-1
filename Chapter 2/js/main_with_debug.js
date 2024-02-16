@@ -138,23 +138,25 @@ function cities(){
 window.onload = initialize();
 
 //New Code for Activity 4
-function debugCallback(response){
-    // Use response.text() to extract the data from the response
+//Giving extra seperation so it's easier for my brain to find it
+
+function debugCallback(response){ //Call function to retrieve CSV data
+
     response.text().then(function(csvData) {
-        // Append the CSV data to the div
-        document.querySelector("#mydiv").insertAdjacentHTML('beforeend', '<br>CSV data:<br>' + csvData);
+        // Append the CSV data to the div as well as change it to CSV and not geojson
+        document.querySelector("#mydiv").insertAdjacentHTML('beforeend', '<br>CSV data:<br>' + csvData); //geojson to csv again, this line is for completing the div call to the HTML index
     });
 }
 
 function debugAjax(){
-    fetch("Chapter 2/data/MegaCities.csv")
+    fetch("Chapter 2/data/MegaCities.csv") // Function to collect the CSV data from the data folder.
         .then(function(response){
             // Call debugCallback and pass the response
-            debugCallback(response);
+            debugCallback(response); // response is for displaying the CSV on the webpage.
         })
         // Catch any errors in fetching the data
         .catch(function(error) {
-            console.log('Error fetching data:', error);
+            console.log('Error fetching data:', error); //Function to showcase an error in the console so debugging is easier.
         });
 }
 
