@@ -148,7 +148,7 @@ function debugCallback(response){
 }
 
 function debugAjax(){
-    fetch("data/MegaCities.geoJSON")
+    fetch("data/MegaCities.GeoJSON")
         .then(function(response){
             // Call debugCallback and pass the response
             debugCallback(response);
