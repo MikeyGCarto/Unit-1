@@ -1,165 +1,150 @@
-//creates a variable array with strings and numbers
-var cityPop = [
-	{ 
-		city: 'Madison',
-		population: 233209
-	},
-	{
-		city: 'Milwaukee',
-		population: 594833
-	},
-	{
-		city: 'Green Bay',
-		population: 104057
-	},
-	{
-		city: 'Superior',
-		population: 27244
-	}
-];
-
-//This function uses each element of cityPop variables to create columns.
-//small, medium, or large city
-function addColumns(cityPop) {
-    
-	//creates the header for City Size
-	document.querySelectorAll("tr").forEach(function(row, i) {
-        if (i == 0) {
-            row.insertAdjacentHTML('beforeend', '<th>City Size</th>');
-        } else {
-            var citySize; //Creates classes for city size based on population
-            if (cityPop[i - 1].population < 100000) {
-                citySize = 'Small';
-            } else if (cityPop[i - 1].population < 500000) {
-                citySize = 'Medium';
-            } else {
-                citySize = 'Large';
-            }
-            row.insertAdjacentHTML('beforeend', '<td>' + citySize + '</td>'); //adds citySize to column
-        }
-    });
-}
-
-//Function creates two interactive buttons
-function addEvents(){
-	
-	//Creates the mouseover event that changes the color of the numbers when hovered over
-	document.querySelector("table").addEventListener("mouseover", function(){
-		
-		var color = "rgb(";
-
-		for (var i=0; i<3; i++){
-
-			var random = Math.round(Math.random() * 255); //random color generator
-
-			color += random; 
-
-			if (i<2){
-				color += ",";
-			
-			} else {
-				color += ")";
-		};
-
-		//Uses the random color generator on the text when hovered over
-		document.querySelector("table").style.color = color;
-	}},)
-
-	//Click interaction when something is clicked
-	function clickme(){
-
-		alert('Hey, you clicked me!');
-	};
-
-	document.querySelector("table").addEventListener("click", clickme)
-};
-
-//Initializes the functions when called upon
+//initialize function called when the script loads
 function initialize(){
-    cities();
-	addColumns(cityPop);
-	addEvents();
+	cities();
+	jQueryAjax();
 };
 
-//Function creates another table with cities and population
+//function to create a table with cities and their populations
 function cities(){
-    var cities = [
-        'Madison',
-        'Milwaukee',
-        'Green Bay',
-        'Superior'
-    ];
-    var population = [
-        233209,
-        594833,
-        104057,
-        27244
-    ];
+	//define two arrays for cities and population
+	var cityPop = [
+		{ 
+			city: 'Madison',
+			population: 233209
+		},
+		{
+			city: 'Milwaukee',
+			population: 594833
+		},
+		{
+			city: 'Green Bay',
+			population: 104057
+		},
+		{
+			city: 'Superior',
+			population: 27244
+		}
+	];
 
-    //create a table element
-    var table = document.createElement("table");
+	//append the table element to the div
+	$("#mydiv").append("<table>");
 
-    //create a header row
-    var headerRow = document.createElement("tr");
-
-    //add city column to header row
-    var cityHeader = document.createElement("th");
-    cityHeader.innerHTML = "City";
-    headerRow.appendChild(cityHeader);
-
-    //add population column to header row
-    var popHeader = document.createElement("th");
-    popHeader.innerHTML = "Population";
-    headerRow.appendChild(popHeader);
+	//append a header row to the table
+	$("table").append("<tr>");
 	
-    //add the header row
-    table.appendChild(headerRow);
-
-    //loop to add a new row for each city
-    for (var i = 0; i < cities.length; i++){
-        var tr = document.createElement("tr");
-
-        var city = document.createElement("td");
-        city.innerHTML = cities[i];
-        tr.appendChild(city);
-
-        var pop = document.createElement("td");
-        pop.innerHTML = population[i];
-        tr.appendChild(pop);
-
-        table.appendChild(tr);
+	//add the "City" and "Population" columns to the header row
+	$("tr").append("<th>City</th><th>Population</th>");
+	
+	//loop to add a new row for each city
+    for (var i = 0; i < cityPop.length; i++){
+        //assign longer html strings to a variable
+        var rowHtml = "<tr><td>" + cityPop[i].city + "</td><td>" + cityPop[i].population + "</td></tr>";
+        //add the row's html string to the table
+        $("table").append(rowHtml);
     };
 
-    //add the table to the div in index.html
-    var mydiv = document.getElementById("mydiv");
-    mydiv.appendChild(table);
+    addColumns(cityPop);
+    addEvents();
 };
 
-//New Code for Activity 4
-//Extra spacing
-function debugCallback(response) {
-    return response.json().then(function(myData) {
-        document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData));
+//function to add a city size column to the table
+function addColumns(cityPop){
+    //for each row, add a new column with the city size category
+    $('tr').each(function(i){
+    	//if the header row
+    	if (i == 0){
+    		//add a header for City Size
+    		$(this).append('<th>City Size</th>');
+    	} else {
+    		//if not the header row, add a category
+    		var citySize;
+    		//if the city population is smaller than 100K, it's a small city
+    		if (cityPop[i-1].population < 100000){
+    			citySize = 'Small';
+    		//if the city population is between 100K and 500K, medium city
+    		} else if (cityPop[i-1].population < 500000){
+    			citySize = 'Medium';
+    		//if city population is above 500K, large city
+    		} else {
+    			citySize = 'Large';
+    		};
+    		//append the cell to the row
+    		$(this).append('<td>' + citySize + '</td>');
+    	};
     });
-}
+};
 
-function debugAjax() {
-    var myData;
+//function to add event listeners to the table
+function addEvents(){
+	//when the user mouses over the table, change the text color to a random color
+	$('table').mouseover(function(){
+		//start of a CSS rgb() value
+		var color = "rgb(";
+		//loop creates r, g, and b values
+		for (var i=0; i<3; i++){
+			//random integer between 0 and 255
+			var random = Math.round(Math.random() * 255);
+			//add the value
+			color += random;
+			//commas to separate values
+			if (i<2){
+				color += ",";
+			//end of rgb() value
+			} else {
+				color += ")";
+			};
+		};
+		//assign the text color
+		$(this).css('color', color);
+	});
+	//click listener handler function
+	function clickme(){
+		//fire an alert when the table is clicked
+		alert('Hey, you clicked me!');
+	};
+	//add click listener to table element
+	$('table').on('click', clickme);
+};
 
-    fetch("data/MegaCities.geojson")
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(data) {
-            myData = data;
-            document.querySelector("#mydiv").insertAdjacentHTML('beforeend', '<br>GeoJSON data:<br>' + JSON.stringify(myData));
-        })
-        .catch(function(error) {
-            console.error('Error fetching data:', error);
-        });
+//Module 3 AJAX function
+function jQueryAjax(){
+	//define a variable to hold the data
+	var mydata;
+	//basic jQuery ajax method
+	$.ajax("data/MegaCities.geojson", {
+		dataType: "json",
+		success: function(response){
+			mydata = response;
 
-    document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData));
-}
+			//the data is usable here
+			console.log("This is the data: ", mydata);
+		}
+	});
 
-debugAjax();
+	//the data is not usable outside of the callback
+	console.log("This is undefined: ", mydata);
 
+	debugAjax();
+};
+
+//Extra Extra spacing for AJAX debugging
+//Module 3 debugging
+//callback function
+function debugCallback(mydata){
+	//add data to the web page
+	$('#mydiv').append('<br>GeoJSON data:<br>' + JSON.stringify(mydata));
+};
+
+//function to call data from server
+function debugAjax(){
+	//request json data from server
+	$.ajax("data/MegaCities.geojson", {
+		dataType: "json",
+		success: function(response){
+			//once data has been received, send to callback
+			debugCallback(response);
+		}
+	});
+};
+
+$(document).ready(initialize);
