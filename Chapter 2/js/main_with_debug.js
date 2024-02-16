@@ -138,17 +138,16 @@ function cities(){
 window.onload = initialize();
 
 //New Code for Activity 4
-//Extra spacing
 function debugCallback(response){
     // Use response.text() to extract the data from the response
-    response.text().then(function(myData) {
-        // Append the GeoJSON data to the div
-        document.querySelector("#mydiv").insertAdjacentHTML('beforeend', '<br>GeoJSON data:<br>' + myData);
+    response.text().then(function(csvData) {
+        // Append the CSV data to the div
+        document.querySelector("#mydiv").insertAdjacentHTML('beforeend', '<br>CSV data:<br>' + csvData);
     });
 }
 
 function debugAjax(){
-    fetch("data/MegaCities.geojson")
+    fetch("Chapter 2/data/MegaCities.csv")
         .then(function(response){
             // Call debugCallback and pass the response
             debugCallback(response);
