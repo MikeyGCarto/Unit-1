@@ -142,21 +142,21 @@ function debugCallback(response) {
         document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData));
     });
 }
-
 function debugAjax() {
     var myData;
 
-    fetch("data/MegaCities.geojson")
+    fetch("Chapter 2/data/MegaCities.csv")
         .then(function(response) {
-            return response.json();
+            // Parse the response as text instead of JSON
+            return response.text();
         })
         .then(function(data) {
+            // Process the CSV data as needed
+            // For example, you can split the data by lines or commas
             myData = data;
-            document.querySelector("#mydiv").insertAdjacentHTML('beforeend', '<br>GeoJSON data:<br>' + JSON.stringify(myData));
+            document.querySelector("#mydiv").insertAdjacentHTML('beforeend', '<br>CSV data:<br>' + myData);
         })
         .catch(function(error) {
             console.error('Error fetching data:', error);
         });
-
-    document.querySelector("#mydiv").insertAdjacentHTML('beforeend', 'GeoJSON data: ' + JSON.stringify(myData));
 }
